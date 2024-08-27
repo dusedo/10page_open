@@ -8,7 +8,8 @@
         body {
             font-family: Arial, sans-serif;
             text-align: center;
-            margin-top: 100px;
+            margin-top: 50px;
+            padding: 0 10px; /* スマートフォンでの余白 */
         }
 
         h1 {
@@ -25,15 +26,19 @@
             display: flex;
             justify-content: center;
             align-items: center;
+            flex-wrap: wrap; /* スマートフォンでのレイアウト崩れを防ぐ */
         }
 
         input[type="text"] {
             padding: 10px;
-            width: 300px;
+            width: 80%; /* 幅を調整してスマートフォンに対応 */
+            max-width: 400px;
             border: 1px solid #ccc;
             border-radius: 4px;
             font-size: 1em;
             margin-left: 5px; /* ペーストボタンとの間にスペースを追加 */
+            margin-right: 5px; /* Openボタンとの間にスペースを追加 */
+            box-sizing: border-box; /* パディングを含む */
         }
 
         button {
@@ -44,7 +49,7 @@
             border-radius: 4px;
             cursor: pointer;
             font-size: 1em;
-            margin-left: 5px; /* Openボタンとの間にスペースを追加 */
+            margin-top: 10px; /* スマートフォンでのボタンの間隔調整 */
         }
 
         button:hover {
@@ -76,6 +81,7 @@
                 document.getElementById('urlInput').value = text;
             } catch (err) {
                 console.error('Failed to read clipboard contents: ', err);
+                alert('ペーストがサポートされていないか、許可されていません。手動でURLを入力してください。');
             }
         });
 
