@@ -3,86 +3,32 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Open URL in 10 Tabs</title>
+    <title>Open URL in 10 Tabs Instantly</title>
     <style>
-        body {
-            font-family: Arial, sans-serif;
-            text-align: center;
-            margin-top: 50px;
-            padding: 0 10px; /* スマートフォンでの余白 */
-        }
-
-        h1 {
-            font-size: 2em;
-        }
-
-        p {
-            font-size: 1.2em;
-            margin-top: 10px;
-        }
-
-        .instruction-text {
-            margin-top: 10px;
-            font-size: 1.2em;
-            line-height: 1.5;
-        }
-
-        form {
-            margin-top: 20px;
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
-        }
-
-        input[type="text"] {
-            padding: 20px; /* 高さを倍に */
-            width: 80%;
-            max-width: 400px;
-            border: 1px solid #ccc;
-            border-radius: 4px;
-            font-size: 1em;
-            margin: 10px 0; /* 上下のマージン */
-            box-sizing: border-box; /* パディングを含む */
-        }
-
-        button {
-            padding: 20px 30px; /* サイズを大きく */
-            background-color: #28a745;
-            color: white;
-            border: none;
-            border-radius: 4px;
-            cursor: pointer;
-            font-size: 1.2em; /* フォントサイズを大きく */
-            margin: 10px 0; /* ボタン間のマージン */
-        }
-
-        button:hover {
-            background-color: #218838;
-        }
-
-        .contact-text {
-            margin-top: 60px; /* 3行分のスペース */
-            font-size: 1em;
-        }
+        body { font-family: Arial, sans-serif; text-align: center; margin-top: 50px; padding: 0 10px; }
+        h1 { font-size: 2em; }
+        p { font-size: 1.2em; margin-top: 10px; }
+        .instruction-text { margin-top: 10px; font-size: 1.2em; line-height: 1.5; }
+        form { margin-top: 20px; display: flex; flex-direction: column; justify-content: center; align-items: center; }
+        input[type="text"] { padding: 20px; width: 80%; max-width: 400px; border: 1px solid #ccc; border-radius: 4px; font-size: 1em; margin: 10px 0; box-sizing: border-box; }
+        button { padding: 20px 30px; background-color: #28a745; color: white; border: none; border-radius: 4px; cursor: pointer; font-size: 1.2em; margin: 10px 0; }
+        button:hover { background-color: #218838; }
+        .contact-text { margin-top: 60px; font-size: 1em; }
     </style>
 </head>
 <body>
-    <h1>Open URL in 10 Tabs</h1>
+    <h1>Open URL in 10 Tabs Instantly</h1>
     <p class="instruction-text">
         下の窓にURLを入れると、<br>
-        同じページが別タブで10ページ開きます
+        同じページが別タブで10ページ一気に開きます
     </p>
     <form id="urlForm">
         <button type="button" id="pasteButton">Paste</button>
         <input type="text" id="urlInput" placeholder="Enter URL" required>
         <button type="submit">Open</button>
     </form>
-
     <p class="contact-text">不具合がありましたら <a href="https://x.com/du_sedo" target="_blank">https://x.com/du_sedo</a> までお問い合わせください</p>
-
     <script>
-        // ペーストボタンの機能
         document.getElementById('pasteButton').addEventListener('click', async function() {
             try {
                 const text = await navigator.clipboard.readText();
@@ -93,21 +39,11 @@
             }
         });
 
-        // URLを逐次的にタブで開く機能
         document.getElementById('urlForm').addEventListener('submit', function(event) {
-            event.preventDefault(); // フォームのデフォルトの送信を防ぐ
+            event.preventDefault();
             const url = document.getElementById('urlInput').value;
-
-            // 明示的に許可を得るためにタブを順次開く
             for (let i = 0; i < 10; i++) {
-                (function(index) {
-                    setTimeout(function() {
-                        const newWindow = window.open(url, '_blank');
-                        if (!newWindow || newWindow.closed || typeof newWindow.closed == 'undefined') {
-                            alert('ポップアップがブロックされました。ブラウザの設定を確認してください。');
-                        }
-                    }, index * 300); // 300msごとにタブを開く
-                })(i);
+                window.open(url, '_blank');
             }
         });
     </script>
