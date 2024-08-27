@@ -22,29 +22,38 @@
 
         form {
             margin-top: 20px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
         }
 
         input[type="text"] {
             padding: 10px;
-            width: 300px;  /* サイズ調整 */
+            width: 300px;
             border: 1px solid #ccc;
             border-radius: 4px;
             font-size: 1em;
+            margin-left: 5px; /* ペーストボタンとの間にスペースを追加 */
         }
 
         button {
             padding: 10px 15px;
-            margin-left: 5px;  /* ボタン間のスペース */
             background-color: #28a745;
             color: white;
             border: none;
             border-radius: 4px;
             cursor: pointer;
             font-size: 1em;
+            margin-left: 5px; /* Openボタンとの間にスペースを追加 */
         }
 
         button:hover {
             background-color: #218838;
+        }
+
+        .contact-text {
+            margin-top: 60px; /* 3行分のスペース */
+            font-size: 1em;
         }
     </style>
 </head>
@@ -52,10 +61,12 @@
     <h1>Open URL in 10 Tabs</h1>
     <p>下の窓にURLを入れると、同じページが別タブで10ページ開きます</p>
     <form id="urlForm">
-        <input type="text" id="urlInput" placeholder="Enter URL" required>
         <button type="button" id="pasteButton">Paste</button>
+        <input type="text" id="urlInput" placeholder="Enter URL" required>
         <button type="submit">Open</button>
     </form>
+
+    <p class="contact-text">不具合がありましたら <a href="https://x.com/du_sedo" target="_blank">https://x.com/du_sedo</a> までお問い合わせください</p>
 
     <script>
         // ペーストボタンの機能
