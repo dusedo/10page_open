@@ -93,12 +93,14 @@
             }
         });
 
-        // URLを10タブで開く機能
+        // URLを逐次的にタブで開く機能
         document.getElementById('urlForm').addEventListener('submit', function(event) {
             event.preventDefault(); // フォームのデフォルトの送信を防ぐ
             const url = document.getElementById('urlInput').value;
             for (let i = 0; i < 10; i++) {
-                window.open(url, '_blank');
+                setTimeout(() => {
+                    window.open(url, '_blank');
+                }, i * 500); // 500msごとにタブを開く
             }
         });
     </script>
