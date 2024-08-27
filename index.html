@@ -9,7 +9,7 @@
             font-family: Arial, sans-serif;
             text-align: center;
             margin-top: 50px;
-            padding: 0 10px;
+            padding: 0 10px; /* スマートフォンでの余白 */
         }
 
         h1 {
@@ -36,39 +36,33 @@
         }
 
         input[type="text"] {
-            padding: 20px;
+            padding: 20px; /* 高さを倍に */
             width: 80%;
             max-width: 400px;
             border: 1px solid #ccc;
             border-radius: 4px;
             font-size: 1em;
-            margin: 10px 0;
-            box-sizing: border-box;
+            margin: 10px 0; /* 上下のマージン */
+            box-sizing: border-box; /* パディングを含む */
         }
 
         button {
-            padding: 20px 30px;
+            padding: 20px 30px; /* サイズを大きく */
             background-color: #28a745;
             color: white;
             border: none;
             border-radius: 4px;
             cursor: pointer;
-            font-size: 1.2em;
-            margin: 10px 0;
+            font-size: 1.2em; /* フォントサイズを大きく */
+            margin: 10px 0; /* ボタン間のマージン */
         }
 
         button:hover {
             background-color: #218838;
         }
 
-        .notice-text {
-            font-size: 0.9em;
-            color: #555;
-            margin-bottom: 20px;
-        }
-
         .contact-text {
-            margin-top: 60px;
+            margin-top: 60px; /* 3行分のスペース */
             font-size: 1em;
         }
     </style>
@@ -81,7 +75,6 @@
     </p>
     <form id="urlForm">
         <button type="button" id="pasteButton">Paste</button>
-        <p class="notice-text">PC環境のみPasteボタンが有効です</p>
         <input type="text" id="urlInput" placeholder="Enter URL" required>
         <button type="submit">Open</button>
     </form>
@@ -100,23 +93,23 @@
             }
         });
 
-        // URLを順次開く機能
+        // URLを逐次的にタブで開く機能
         document.getElementById('urlForm').addEventListener('submit', function(event) {
-            event.preventDefault();
+            event.preventDefault(); // フォームのデフォルトの送信を防ぐ
             const url = document.getElementById('urlInput').value;
-            openTabsSequentially(url, 0);
-        });
 
-        function openTabsSequentially(url, count) {
-            if (count < 10) {
-                const newWindow = window.open(url, '_blank');
-                if (!newWindow || newWindow.closed || typeof newWindow.closed == 'undefined') {
-                    alert('ポップアップがブロックされました。ブラウザの設定を確認してください。');
-                    return;
-                }
-                setTimeout(() => openTabsSequentially(url, count + 1), 1000); // 1秒間隔で次のタブを開く
+            // 明示的に許可を得るためにタブを順次開く
+            for (let i = 0; i < 10; i++) {
+                (function(index) {
+                    setTimeout(function() {
+                        const newWindow = window.open(url, '_blank');
+                        if (!newWindow || newWindow.closed || typeof newWindow.closed == 'undefined') {
+                            alert('ポップアップがブロックされました。ブラウザの設定を確認してください。');
+                        }
+                    }, index * 300); // 300msごとにタブを開く
+                })(i);
             }
-        }
+        });
     </script>
 </body>
 </html>
