@@ -26,14 +26,15 @@
 
         input[type="text"] {
             padding: 10px;
-            width: 400px;
+            width: 300px;  /* サイズ調整 */
             border: 1px solid #ccc;
             border-radius: 4px;
             font-size: 1em;
         }
 
         button {
-            padding: 10px 20px;
+            padding: 10px 15px;
+            margin-left: 5px;  /* ボタン間のスペース */
             background-color: #28a745;
             color: white;
             border: none;
@@ -52,10 +53,22 @@
     <p>下の窓にURLを入れると、同じページが別タブで10ページ開きます</p>
     <form id="urlForm">
         <input type="text" id="urlInput" placeholder="Enter URL" required>
+        <button type="button" id="pasteButton">Paste</button>
         <button type="submit">Open</button>
     </form>
 
     <script>
+        // ペーストボタンの機能
+        document.getElementById('pasteButton').addEventListener('click', async function() {
+            try {
+                const text = await navigator.clipboard.readText();
+                document.getElementById('urlInput').value = text;
+            } catch (err) {
+                console.error('Failed to read clipboard contents: ', err);
+            }
+        });
+
+        // URLを10タブで開く機能
         document.getElementById('urlForm').addEventListener('submit', function(event) {
             event.preventDefault(); // フォームのデフォルトの送信を防ぐ
             const url = document.getElementById('urlInput').value;
