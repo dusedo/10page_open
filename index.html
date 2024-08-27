@@ -36,7 +36,7 @@
         }
 
         input[type="text"] {
-            padding: 10px;
+            padding: 20px; /* 高さを倍に */
             width: 80%;
             max-width: 400px;
             border: 1px solid #ccc;
@@ -61,6 +61,12 @@
             background-color: #218838;
         }
 
+        .notice-text {
+            font-size: 0.9em;
+            color: #555;
+            margin-bottom: 20px;
+        }
+
         .contact-text {
             margin-top: 60px; /* 3行分のスペース */
             font-size: 1em;
@@ -75,6 +81,7 @@
     </p>
     <form id="urlForm">
         <button type="button" id="pasteButton">Paste</button>
+        <p class="notice-text">PC環境のみPasteボタンが有効です</p>
         <input type="text" id="urlInput" placeholder="Enter URL" required>
         <button type="submit">Open</button>
     </form>
@@ -97,10 +104,17 @@
         document.getElementById('urlForm').addEventListener('submit', function(event) {
             event.preventDefault(); // フォームのデフォルトの送信を防ぐ
             const url = document.getElementById('urlInput').value;
+
+            // 明示的に許可を得るためにタブを順次開く
             for (let i = 0; i < 10; i++) {
-                setTimeout(() => {
-                    window.open(url, '_blank');
-                }, i * 500); // 500msごとにタブを開く
+                (function(index) {
+                    setTimeout(function() {
+                        const newWindow = window.open(url, '_blank');
+                        if (!newWindow || newWindow.closed || typeof newWindow.closed == 'undefined') {
+                            alert('ポップアップがブロックされました。ブラウザの設定を確認してください。');
+                        }
+                    }, index * 300); // 300msごとにタブを開く
+                })(i);
             }
         });
     </script>
